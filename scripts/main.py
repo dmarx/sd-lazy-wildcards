@@ -7,15 +7,33 @@ import gradio as gr
 #import openai # TODO: more generic
 
 
-ONTOLOGY_PROMPT="respond only with a bulleted list of {n} members of the following ontology: {ontology}"
+ONTOLOGY_PROMPT="respond only with a bulleted list of {n} members of the following ontology: {text}"
 
 
 class Wildcard:
-    def __init__(self, text, prompt_template=ONTOLOGY_PROMPT):
+    def __init__(self, text:str, prompt_template:str=ONTOLOGY_PROMPT):
         self.text = text
+        self.prompt_template = prompt_template
         self.parse()
-    def materialize(self, n=1):
-        pass
+    def materialize(self, n:int=1) -> str:
+        prompt = self.prompt_template.format(n=n, text=self.text_)
+        return self.text
+    def parse(self):
+        # TODO: implement
+        self.text_ = self.text
+
+
+def replace_wildcards(text):
+    return text
+    # TODO: implementation
+    outv = ""
+    for chunk in segment(text):
+        if is_wildcard(chunk):
+            chunk = Wildcard(chunk).materialize()
+        outv += chunk
+    return outv
+        
+
 
 class Script(scripts.Script):
     def title(self):
@@ -26,17 +44,15 @@ class Script(scripts.Script):
        
         return [enable_m]
 
-    def run(self, p,enable_m):
+    def run(self, p, enable_m):
         all_prompts = []
         infotexts = []
 
         if (enable_m==True):
-            #initial_prompt =  p.prompt
-            #p.prompt = p.negative_prompt
-            #p.negative_prompt = initial_prompt
-            pass
+            p.prompt = replace_wildcards(p.prompt)
+            p.negative_prompt = replace_wildcards(p.negative_prompt)
 
         proc = process_images(p)
         all_prompts = proc.all_prompts
         infotexts = proc.infotexts
-        return Processed(p, proc.images, p.seed, "",all_prompts=all_prompts,infotexts=infotexts)
+        return Processed(p, proc.images, p.seed, "", all_prompts=all_prompts, infotexts=infotexts)
