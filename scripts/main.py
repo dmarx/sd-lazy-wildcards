@@ -4,6 +4,18 @@ from modules.shared import opts
 from modules.processing import Processed, process_images, images
 import modules.scripts as scripts
 import gradio as gr
+#import openai # TODO: more generic
+
+
+ONTOLOGY_PROMPT="respond only with a bulleted list of {n} members of the following ontology: {ontology}"
+
+
+class Wildcard:
+    def __init__(self, text, prompt_template=ONTOLOGY_PROMPT):
+        self.text = text
+        self.parse()
+    def materialize(self, n=1):
+        pass
 
 class Script(scripts.Script):
     def title(self):
