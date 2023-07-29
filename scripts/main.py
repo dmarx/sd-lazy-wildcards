@@ -19,9 +19,10 @@ class Script(scripts.Script):
         infotexts = []
 
         if (enable_m==True):
-            initial_prompt =  p.prompt
-            p.prompt = p.negative_prompt
-            p.negative_prompt = initial_prompt
+            #initial_prompt =  p.prompt
+            #p.prompt = p.negative_prompt
+            #p.negative_prompt = initial_prompt
+            pass
 
         proc = process_images(p)
         all_prompts = proc.all_prompts
