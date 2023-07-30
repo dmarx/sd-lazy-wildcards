@@ -6,13 +6,21 @@ from modules.shared import opts
 from modules.processing import Processed, process_images, images
 import modules.scripts as scripts
 import gradio as gr
-#import openai # TODO: more generic
+import openai # TODO: more generic
 
 
 ONTOLOGY_PROMPT=(
     "I'm building an ontology. please propose a list of at least {n} members that fit the following ontology category: ```{text}```."
     'please respond with a bulleted list. each item in the list should be on its own line and preceded by an asterisk ("* item\n").'
 )
+
+def invoke_llm(prompt, **kargs):
+    completions = openai.ChatCompletion.create(
+        messages=[
+            #{"role": "system", "content": DEFAULT_SYSTEM_PROMPT},
+            {"role": "user", "content": prompt},
+        ], **kargs)
+    return completions.choices[0]['message']['content'].strip()
 
 
 class Wildcard:
@@ -29,7 +37,7 @@ class Wildcard:
         options = self._options_cache.get(self.text)
         return random.choice(options)
     def options_from_prompt(self, prompt):
-        response = ... # invoke LLM
+        response = invoke_llm(prompt)
         options = []
         for line in response.split(\n):
             line = line.strip()
