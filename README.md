@@ -25,3 +25,10 @@ that fit the following ontology category: ```{text}```.
 ```
 
 I recommend using a forward-slash separated hierarchy for your wildcard, e.g. `__places/usa/major_cities__`. 
+
+# TODO:
+
+* [x] MVP
+* [ ] some mechanism to let user configure `n` per-wildcard
+* [ ] Save new ontologies to disk for future re-use
+* [ ] PR to sd-dynamic-prompts as a way to backfill missing ontology components
