@@ -61,10 +61,10 @@ def replace_wildcards(text):
 
 class Script(scripts.Script):
     def title(self):
-        return "Hallucinate"
+        return "Lazy Wildcards"
 
     def ui(self, is_img2img):
-        enable_m = gr.Checkbox(label="Yes please, Hallucinate about Monsters", value=True, elem_id=self.elem_id("enable"))
+        enable_m = gr.Checkbox(label="Activate", value=True, elem_id=self.elem_id("enable"))
        
         return [enable_m]
 
