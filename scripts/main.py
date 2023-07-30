@@ -9,6 +9,22 @@ import gradio as gr
 import openai # TODO: more generic
 from loguru import logger
 
+import modules.paths as ph
+import os
+from pathlib import Path
+
+api_key = os.environ.get("OPENAI_API_KEY")
+if not api_key:
+    p = Path(ph.extensions_dir) / "KEY.txt"
+    if p.exists():
+        api_key = p.read()
+    else:
+        raise Exception(
+            "Unable to locate an OpenAI API key. Alternative LLMs not yet supported. "
+            "Please put your key in a file named 'KEY.txt' in the sd-lazy-wildcards extension folder, then restart the webui."
+        )
+
+openai.api_key = api_key
 
 ONTOLOGY_PROMPT=(
     "I'm building an ontology. please propose a list of at least {n} members that fit the following ontology category: ```{text}```."
