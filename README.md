@@ -19,11 +19,9 @@ A "wildcard" in your prompt must satisfy the following to be read correctly by t
 
 The text contained between those double underscores will then be passed into the following prompt with n=20 (users will have more control over `n` in the future):
 
-```python
-ONTOLOGY_PROMPT=(
-    "I'm building an ontology. please propose a list of at least {n} members that fit the following ontology category: ```{text}```."
-    'please respond with a bulleted list. each item in the list should be on its own line and preceded by an asterisk ("* item\n").'
-)
+```
+I'm building an ontology. please propose a list of at least {n} members
+that fit the following ontology category: ```{text}```.
 ```
 
 I recommend using a forward-slash separated hierarchy for your wildcard, e.g. `__places/usa/major_cities__`. 
