@@ -1,4 +1,5 @@
 import launch
 
-if not launch.is_installed("openai"):
-    launch.run_pip("install openai", "requirement for Lazy Wildcard")
+for lib in "openai loguru".split():
+if not launch.is_installed(lib):
+    launch.run_pip(f"install {lib}", "requirement for Lazy Wildcard")
