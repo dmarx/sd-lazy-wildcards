@@ -22,7 +22,8 @@ if not api_key:
     #p = Path(ph.extensions_dir) / "KEY.txt"
     logger.debug(KEY_PATH)
     if KEY_PATH.exists():
-        api_key = KEY_PATH.read().strip()
+        with KEY_PATH.open() as f:
+            api_key = f.read().strip()
     else:
         raise Exception(
             "Unable to locate an OpenAI API key. Alternative LLMs not yet supported. "
