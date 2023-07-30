@@ -13,13 +13,16 @@ import modules.paths as ph
 import os
 from pathlib import Path
 
+EXT_NAME = "sd-lazy-wildcards"
+EXT_PATH = Path(ph.extensions_dir) / EXT_NAME
+KEY_PATH = EXT_PATH / "KEY.txt"
+
 api_key = os.environ.get("OPENAI_API_KEY")
 if not api_key:
     #p = Path(ph.extensions_dir) / "KEY.txt"
-    logger.debug((Path(ph.extensions_dir) / "KEY.txt").absolute())
-    p = Path("../..") / "KEY.txt"
-    if p.exists():
-        api_key = p.read()
+    logger.debug(KEY_PATH)
+    if KEY_PATH.exists():
+        api_key = KEY_PATH.read().strip()
     else:
         raise Exception(
             "Unable to locate an OpenAI API key. Alternative LLMs not yet supported. "
