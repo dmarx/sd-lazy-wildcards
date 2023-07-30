@@ -14,7 +14,7 @@ You have two options here:
 
 A "wildcard" in your prompt must satisfy the following to be read correctly by the extension:
 
-* Start and end with double underscores enclosed by white space
+* The wildcard string must start and end with double underscores. E.g. if one of those double underscores is touching punctuation, it probably won't be treated as a wildcard by this extension (this will be fixed in the future).
 * contains no white space
 
 The text contained between those double underscores will then be passed into the following prompt with n=20 (users will have more control over `n` in the future):
@@ -35,3 +35,4 @@ One of the benefits of this system is it makes it easy to be imaginative in prom
 * [ ] Save new ontologies to disk for future re-use
 * [ ] PR to sd-dynamic-prompts as a way to backfill missing ontology components
 * [ ] Support more (esp. local) LLMs
+* [ ] Improve parsing/substitution to support wildcards touching grammatical tokens
