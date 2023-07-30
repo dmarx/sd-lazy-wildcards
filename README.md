@@ -28,6 +28,12 @@ I recommend using a forward-slash separated hierarchy for your wildcard, e.g. `_
 
 One of the benefits of this system is it makes it easy to be imaginative in prompting for wildcards, e.g. `__worldbuilding/lotr/gollum/possible-names-gollum-uses-to-privately-refer-to-each-individual-hair-on-his-head-as-if-its-a-person__`
 
+# Implementation Notes
+
+If you use the same wildcard in multiple prompts, only the first prompt will emit a request to the LLM. The results you get back will be cached, and future invocations of that wildcard will pull random samples from the options retrieved in that first request. At present, these results are not persisted to disk and live only in memory, so rebooting the UI will flush the cache and wildcards will be treated as "new" and requiring of LLM queries again.
+
+
+
 # TODO:
 
 * [x] MVP
