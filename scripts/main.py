@@ -18,6 +18,7 @@ ONTOLOGY_PROMPT=(
 def invoke_llm(prompt, **kargs):
     logger.info("invoking LLM")
     completions = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
         messages=[
             #{"role": "system", "content": DEFAULT_SYSTEM_PROMPT},
             {"role": "user", "content": prompt},
