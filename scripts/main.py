@@ -16,7 +16,7 @@ ONTOLOGY_PROMPT=(
 )
 
 def invoke_llm(prompt, **kargs):
-    loguru.info("invoking LLM")
+    logger.info("invoking LLM")
     completions = openai.ChatCompletion.create(
         messages=[
             #{"role": "system", "content": DEFAULT_SYSTEM_PROMPT},
