@@ -15,7 +15,9 @@ from pathlib import Path
 
 api_key = os.environ.get("OPENAI_API_KEY")
 if not api_key:
-    p = Path(ph.extensions_dir) / "KEY.txt"
+    #p = Path(ph.extensions_dir) / "KEY.txt"
+    logger.debug((Path(ph.extensions_dir) / "KEY.txt").absolute())
+    p = Path("../..") / "KEY.txt"
     if p.exists():
         api_key = p.read()
     else:
