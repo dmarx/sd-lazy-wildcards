@@ -7,7 +7,7 @@ from modules.processing import Processed, process_images, images
 import modules.scripts as scripts
 import gradio as gr
 import openai # TODO: more generic
-import loguru
+from loguru import logger
 
 
 ONTOLOGY_PROMPT=(
