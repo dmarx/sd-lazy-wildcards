@@ -79,13 +79,13 @@ def replace_wildcards(text):
     # TODO: implementation
     chunks = []
     for chunk in text.split():
-        logger.debug(chunk)
+        #logger.debug(chunk)
         if chunk.startswith('__'):
-            logger.debug("wildcard detected")
+            logger.debug(f"wildcard detected: {chunk}")
             chunk = Wildcard(chunk).fill()
             logger.debug(chunk)
         chunks += [chunk]
-    logger.debug(chunks)
+    #logger.debug(chunks)
     return ' '.join(chunks)
         
 
