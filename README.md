@@ -26,6 +26,8 @@ that fit the following ontology category: ```{text}```.
 
 I recommend using a forward-slash separated hierarchy for your wildcard, e.g. `__places/usa/major_cities__`. 
 
+One of the benefits of this system is it makes it easy to be imaginative in prompting for wildcards, e.g. `__worldbuilding/lotr/gollum/possible-names-gollum-uses-to-privately-refer-to-each-individual-hair-on-his-head-as-if-its-a-person__`
+
 # TODO:
 
 * [x] MVP
