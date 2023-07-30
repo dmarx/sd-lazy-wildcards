@@ -39,7 +39,7 @@ class Wildcard:
     def options_from_prompt(self, prompt):
         response = invoke_llm(prompt)
         options = []
-        for line in response.split(\n):
+        for line in response.split("\n"):
             line = line.strip()
             if line.startswith("*"):
                 value = line[1:].strip()
@@ -52,7 +52,7 @@ def replace_wildcards(text):
     # TODO: implementation
     chunks = []
     for chunk in text.split():
-        if chunk.startswith('__')
+        if chunk.startswith('__'):
             chunk = Wildcard(chunk).fill()
         chunks += [chunk]
     return ' '.join(chunks)
