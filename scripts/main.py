@@ -1,4 +1,6 @@
-# scavenged from https://github.com/FartyPants/sd_web_ui_scripts/blob/main/scripts/hallucinate.py
+# scavenged and modified from https://github.com/FartyPants/sd_web_ui_scripts/blob/main/scripts/hallucinate.py
+
+import random
 
 from modules.shared import opts
 from modules.processing import Processed, process_images, images
@@ -7,31 +9,45 @@ import gradio as gr
 #import openai # TODO: more generic
 
 
-ONTOLOGY_PROMPT="respond only with a bulleted list of {n} members of the following ontology: {text}"
+ONTOLOGY_PROMPT=(
+    "I'm building an ontology. please propose a list of at least {n} members that fit the following ontology category: ```{text}```."
+    'please respond with a bulleted list. each item in the list should be on its own line and preceded by an asterisk ("* item\n").'
+)
 
 
 class Wildcard:
+    _options_cache = {}
     def __init__(self, text:str, prompt_template:str=ONTOLOGY_PROMPT):
         self.text = text
         self.prompt_template = prompt_template
-        self.parse()
-    def materialize(self, n:int=1) -> str:
-        prompt = self.prompt_template.format(n=n, text=self.text_)
-        return self.text
-    def parse(self):
-        # TODO: implement
-        self.text_ = self.text
-
+    def materialize(self, n:int=20) -> str:
+        prompt = self.prompt_template.format(n=n, text=self.text)
+        self._options_cache[self.text] = self.options_from_prompt(prompt)
+    def fill(self):
+        if self.text not in self._options_cache:
+            self.materialize()
+        options = self._options_cache.get(self.text)
+        return random.choice(options)
+    def options_from_prompt(self, prompt):
+        response = ... # invoke LLM
+        options = []
+        for line in response.split(\n):
+            line = line.strip()
+            if line.startswith("*"):
+                value = line[1:].strip()
+                options.append(value)
+        return options
+            
 
 def replace_wildcards(text):
     return text
     # TODO: implementation
-    outv = ""
-    for chunk in segment(text):
-        if is_wildcard(chunk):
-            chunk = Wildcard(chunk).materialize()
-        outv += chunk
-    return outv
+    chunks = []
+    for chunk in text.split():
+        if chunk.startswith('__')
+            chunk = Wildcard(chunk).fill()
+        chunks += [chunk]
+    return ' '.join(chunks)
         
 
 
