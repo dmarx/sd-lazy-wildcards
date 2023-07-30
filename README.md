@@ -42,3 +42,4 @@ If you use the same wildcard in multiple prompts, only the first prompt will emi
 * [ ] PR to sd-dynamic-prompts as a way to backfill missing ontology components
 * [ ] Support more (esp. local) LLMs
 * [ ] Improve parsing/substitution to support wildcards touching grammatical tokens
+* [ ] Let user specify API key via a UI form
