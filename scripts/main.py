@@ -7,6 +7,7 @@ from modules.processing import Processed, process_images, images
 import modules.scripts as scripts
 import gradio as gr
 import openai # TODO: more generic
+import loguru
 
 
 ONTOLOGY_PROMPT=(
@@ -15,6 +16,7 @@ ONTOLOGY_PROMPT=(
 )
 
 def invoke_llm(prompt, **kargs):
+    loguru.info("invoking LLM")
     completions = openai.ChatCompletion.create(
         messages=[
             #{"role": "system", "content": DEFAULT_SYSTEM_PROMPT},
@@ -38,12 +40,14 @@ class Wildcard:
         return random.choice(options)
     def options_from_prompt(self, prompt):
         response = invoke_llm(prompt)
+        logger.debug(response)
         options = []
         for line in response.split("\n"):
             line = line.strip()
             if line.startswith("*"):
                 value = line[1:].strip()
                 options.append(value)
+        logger.debug(options)
         return options
             
 
@@ -75,7 +79,7 @@ class Script(scripts.Script):
         if (enable_m==True):
             p.prompt = replace_wildcards(p.prompt)
             p.negative_prompt = replace_wildcards(p.negative_prompt)
-
+        logger.debug(p.prompt)
         proc = process_images(p)
         all_prompts = proc.all_prompts
         infotexts = proc.infotexts
