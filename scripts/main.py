@@ -52,7 +52,7 @@ class Wildcard:
             
 
 def replace_wildcards(text):
-    return text
+    #return text
     # TODO: implementation
     chunks = []
     for chunk in text.split():
